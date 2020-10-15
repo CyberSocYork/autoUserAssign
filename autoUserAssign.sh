@@ -2,7 +2,7 @@ if [[ -n $SSH_CONNECTION ]]; then
         userNum=-1
 
         for num in {0..100}; do
-                if [[ ! "$(who | grep 'user*' | cut -d' ' -f1 | sort | uniq)" =~ "${num}" ]]; then
+                if [[ ! "$(who | grep 'user[0-9]*' | cut -d' ' -f1 | sort | uniq)" =~ ${num} ]]; then
                         userNum=$num
                         break
                 fi
@@ -13,7 +13,7 @@ if [[ -n $SSH_CONNECTION ]]; then
         else
                 echo "User 'user$userNum' is free"
                 echo "Logging in as 'user$userNum'..."
-                ssh user$userNum@127.0.0.1
+                ssh "user$userNum@127.0.0.1"
                 exit
         fi
 fi
